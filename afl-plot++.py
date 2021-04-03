@@ -11,7 +11,8 @@ import os
 
 if __name__=='__main__':
     file_name=sys.argv[1]
-    time_limit=int(sys.argv[2])*3600
+    hours=int(sys.argv[2])
+    time_limit=hours*3600
 
 
     time0=[]
@@ -71,6 +72,9 @@ if __name__=='__main__':
     time1=np.array(time1)
     paths=np.array(paths)
 
+    time0=time0/3600
+    time1=time1/3600
+
     def timeTicks(x, pos):                                                                                                                                                                                                                                                         
         # d = datetime.timedelta(seconds=x)                                                                                                                                                                                                                                          
         # return str(d)[:-3]
@@ -83,25 +87,35 @@ if __name__=='__main__':
     ax = fig.add_subplot(1,1,1)
 
     color = 'tab:red'
-    ax.step(time0, crashes,color=color) 
+    # color = 'tab:blue'
+    ax.step(time0,crashes,color=color)
+    # ax.step(time1, paths,color=color) 
 
-    # plt.xticks([0,30*60*60])
-    formatter = matplotlib.ticker.FuncFormatter(timeTicks)
-    ax.xaxis.set_major_formatter(formatter)
-    ax.xaxis.set_major_locator(plt.MultipleLocator(30*60))
+
+
+    plt.xticks(np.arange(0, hours+1, step=0.5))
+    # formatter = matplotlib.ticker.FuncFormatter(timeTicks)
+    # ax.xaxis.set_major_formatter(formatter)
+    # ax.xaxis.set_major_locator(plt.MultipleLocator(30*60))
 
     plt.xlim(xmin=0.0
-        ,xmax=time_limit
+        # ,xmax=time_limit
+        ,xmax=hours
     )
     plt.ylim(ymin=0.0)
-    # plt.yticks(np.arange(0,(max(crashes)//25+2)*25,25))
+    # plt.ylim(ymax=30)
+    # plt.ylim(ymax=1800)
+
+    # plt.yticks(np.arange(0,250,20))
 
     plt.grid()
 
     plt.xlabel('run time')
     plt.ylabel('uniq crashes',color=color)
+    # plt.ylabel('total paths',color=color)
+
     ax.tick_params(axis='y', labelcolor=color)
-    plt.title(os.path.abspath(file_name))
+    # plt.title(os.path.abspath(file_name))
 
     color2 = 'tab:blue'
     ax2=ax.twinx()
