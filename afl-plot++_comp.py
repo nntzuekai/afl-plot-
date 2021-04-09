@@ -108,12 +108,13 @@ def get_avg(time_seqs,deltas):
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-t',type=float,required=True)
-    parser.add_argument('-a', nargs='+',required=True)
-    parser.add_argument('-b', nargs='+')
-    parser.add_argument('-c', nargs='+')
-    parser.add_argument('-al')
-    parser.add_argument('-bl')
-    parser.add_argument('-cl')
+    parser.add_argument('-a', nargs='+',required=True,help='folders for group a')
+    parser.add_argument('-b', nargs='+',help='folders for group b')
+    parser.add_argument('-c', nargs='+',help='folders for group c')
+    parser.add_argument('-al','--a_label',help='name for group a')
+    parser.add_argument('-bl','--b_label',help='name for group b')
+    parser.add_argument('-cl','--c_label',help='name for group c')
+    parser.add_argument("-l", "--linestyle", action="store_true",help="use different linestyles")
     args = parser.parse_args()
 
     hours=args.t
@@ -122,9 +123,15 @@ if __name__=='__main__':
     color_a='tab:blue'
     color_b='tab:red'
     color_c='tab:green'
-    linestyle_a='-'
-    linestyle_b='--'
-    linestyle_c='-.'
+    if args.linestyle:
+        linestyle_a='-'
+        linestyle_b='--'
+        linestyle_c='-.'
+    else:
+        linestyle_a='-'
+        linestyle_b='-'
+        linestyle_c='-'
+    
     fig0 = plt.figure(0)
     plot0=fig0.add_subplot(1,1,1)
 
@@ -139,8 +146,8 @@ if __name__=='__main__':
 
 
     if args.a:
-        if args.al:
-            label=args.al
+        if args.a_label:
+            label=args.a_label
         else:
             label='line a'
 
@@ -166,8 +173,8 @@ if __name__=='__main__':
         plot1.step(total_time2,avg_path,color=color_a,label=label,linestyle=linestyle_a)
 
     if args.b:
-        if args.bl:
-            label=args.bl
+        if args.b_label:
+            label=args.b_label
         else:
             label='line b'
             
@@ -193,8 +200,8 @@ if __name__=='__main__':
         plot1.step(total_time2,avg_path,color=color_b,label=label,linestyle=linestyle_b)
 
     if args.c:
-        if args.cl:
-            label=args.cl
+        if args.c_label:
+            label=args.c_label
         else:
             label='line c'
         time_seqs_path=[]
