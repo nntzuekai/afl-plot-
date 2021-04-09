@@ -1,0 +1,2 @@
+python3 afl-plot++_comp.py -t 6 -a  ~/thesis1/out-22Mar-2142/ef709ce2/ ~/thesis1/xml-inst-c4h-6h/  ~/thesis1/xml-inst-c2h-6h/ ~/thesis1/xml-inst-c1h-6h/ -b ~/original-copies/xml-252-2/ ~/original-copies/xml-252-3 ~/original-copies/xml-252-4 ~/original-copies/out/ef709ce2/ -c ~/thesis1/xml-exit-4h/ ~/thesis1/xml-exit-c4h-1/ ~/thesis1/xml-exit-c5h/
+
